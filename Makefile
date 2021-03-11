@@ -8,6 +8,7 @@ analyze:
 	npm audit
 	composer valid
 	php bin/console doctrine:schema:validate
+	php vendor/bin/phpcs
 
 .PHONY: tests
 tests:
@@ -36,3 +37,7 @@ prepare-test:
 prepare-dev:
 	make database-dev
 	make fixtures-dev
+
+prepare-env:
+	cp .env.dist .env.dev.local
+	cp .env.dist .env.test.local
