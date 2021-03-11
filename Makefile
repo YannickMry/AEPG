@@ -39,6 +39,5 @@ prepare-dev:
 	make fixtures-dev
 
 prepare-env:
-	make prepare-test
 	cp .env.dist .env.dev.local
 	cp .env.dist .env.test.local
