@@ -11,7 +11,7 @@ analyze:
 
 .PHONY: tests
 tests:
-	php bin/phpunit --coverage-html ./var/web/html-coverage --coverage-clover ./var/web/clover-coverage/clover.xml
+	php bin/phpunit
 
 fixtures-test:
 	php bin/console doctrine:fixtures:load -n --env=test

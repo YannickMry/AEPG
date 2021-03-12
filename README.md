@@ -1,5 +1,5 @@
 ![AEPG](docs/images/logo-aepg.png)
-![Intégration continue](https://github.com/YannickMry/AEPG/actions/workflows/ci/badge.svg?branch=main&event=push)
+![Intégration continue](https://github.com/YannickMry/AEPG/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)
 [![codecov](https://codecov.io/gh/YannickMry/AEPG/branch/main/graph/badge.svg?token=D0B133EVOJ)](https://codecov.io/gh/YannickMry/AEPG)
 
 AEPG est une application permettant aux étudiants de l'association des étudiants pénalistes de grenoble de pouvoir se faire connaitre ainsi que de faire vivre l'application en y introduisant des articles sur le sujet du droit pénal.
