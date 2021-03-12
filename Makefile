@@ -3,11 +3,10 @@ install:
 	composer install
 	npm install
 
-.PHONY: vendor
 analyze:
 	npm audit
 	composer valid
-	php bin/console doctrine:schema:validate
+	php bin/console doctrine:schema:validate --skip-sync
 	php vendor/bin/phpcs
 
 .PHONY: tests
