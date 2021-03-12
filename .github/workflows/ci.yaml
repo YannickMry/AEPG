@@ -41,3 +41,8 @@ jobs:
         run: make analyze
       - name: Tests
         run: make tests
+      - name: Send code coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./var/web/clover-coverage/clover.xml

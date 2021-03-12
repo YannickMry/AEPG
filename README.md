@@ -1,13 +1,15 @@
 ![AEPG](docs/images/logo-aepg.png)
+![Intégration continue](https://github.com/YannickMry/AEPG/actions/workflows/ci/badge.svg?branch=main&event=push)
+[![codecov](https://codecov.io/gh/YannickMry/AEPG/branch/main/graph/badge.svg?token=D0B133EVOJ)](https://codecov.io/gh/YannickMry/AEPG)
 
 AEPG est une application permettant aux étudiants de l'association des étudiants pénalistes de grenoble de pouvoir se faire connaitre ainsi que de faire vivre l'application en y introduisant des articles sur le sujet du droit pénal.
 
 ## Installation
 
 ## Récupérer les sources du projet
-Pensez à `fork` le projet.
+
 ```
-git clone https://github.com/<your-username>/<repo-name>
+git clone https://github.com/YannickMry/AEPG
 ```
 
 ## Pré-requis
@@ -25,7 +27,7 @@ git clone https://github.com/<your-username>/<repo-name>
 ## Installer les dépendances
 Dans un premier temps, positionnez vous dans le dossier du projet :
 ```
-cd <repo-name>
+cd AEPG
 ```
 
 Exectuer la commande suivante
