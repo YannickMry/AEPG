@@ -3,12 +3,12 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\News;
+use App\Entity\Article;
 use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class NewsFixtures extends Fixture
+class ArticleFixtures extends Fixture
 {
 
     public function load(ObjectManager $manager)
@@ -26,7 +26,7 @@ class NewsFixtures extends Fixture
                 $imageFilters[rand(0, 2)]
             );
 
-            $news = (new News())
+            $article = (new Article())
                 ->setTitle($faker->words(rand(5, 10), true))
                 ->setContent($faker->text())
                 ->setImage($image)
@@ -34,7 +34,7 @@ class NewsFixtures extends Fixture
                 ->setIsHidden($bool[rand(0, 1)])
                 ->setCreatedAt(DateTimeImmutable::createFromMutable($date));
 
-            $manager->persist($news);
+            $manager->persist($article);
         }
 
         $manager->flush();

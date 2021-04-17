@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\NewsRepository;
+use App\Repository\ArticleRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
-class News
+class Article
 {
     /**
      * @ORM\Id
@@ -21,6 +23,11 @@ class News
      * @ORM\Column(type="string", length=255)
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -60,6 +67,31 @@ class News
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Create or upadate slug automatically when creating or updating an Article
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createOrUpdateSlug()
+    {
+        $slufify = new Slugify();
+
+        $this->slug = $slufify->slugify($this->title);
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
