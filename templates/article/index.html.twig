@@ -3,11 +3,14 @@
 {% block title %}Actualités : {{article.title}}{% endblock %}
 
 {% block body %}
+
+{% for article in articles %}
 <h1>{{article.title}}</h1>
 <img src="{{article.image}}" alt="">
 <p>
-    {{article.content}}
+    {{article.content|u.truncate(150, '...', false)}}
 </p>
 <small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
+{% endfor %}
 
 {% endblock %}
