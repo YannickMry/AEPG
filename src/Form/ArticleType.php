@@ -19,13 +19,13 @@ class ArticleType extends AbstractType
                 'label' => 'Intitulé',
             ])
             ->add('image')
-            ->add('content', TextareaType::class,  [
+            ->add('content', TextareaType::class, [
                 'label' => 'Contenu',
             ])
-            ->add('isHidden', CheckboxType::class,  [
+            ->add('isHidden', CheckboxType::class, [
                 'label' => 'Voulez-vous cacher l\'article au public ?',
             ])
-            ->add('author', TextType::class,  [
+            ->add('author', TextType::class, [
                 'label' => 'Auteur(s)',
             ])
         ;
