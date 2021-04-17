@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}AEPG - Actualités{% endblock %}
+
+{% block body %}
+<h1>Actualités de l'association</h1>
+{% for article in articles %}
+    <h2>
+        <a href="{{ path('article_show', {slug: article.slug})}}">{{article.title}}</a>
+    </h2>
+    <p>
+        {{article.content|u.truncate(150, '...', false)}}
+    </p>
+    <small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
+{% endfor %}
+
+{% endblock %}
