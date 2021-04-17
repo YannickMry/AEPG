@@ -1,0 +1,13 @@
+{% extends 'layouts/base_admin.html.twig' %}
+
+{% block title %}Actualités : {{article.title}}{% endblock %}
+
+{% block body %}
+<h1>{{article.title}}</h1>
+<img src="{{article.image}}" alt="">
+<p>
+    {{article.content}}
+</p>
+<small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
+
+{% endblock %}
