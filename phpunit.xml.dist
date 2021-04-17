@@ -13,6 +13,7 @@
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
         <server name="SYMFONY_PHPUNIT_VERSION" value="8.5" />
+        <server name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
     </php>
 
     <testsuites>
@@ -21,6 +22,9 @@
         </testsuite>
         <testsuite name="Test functional">
             <directory>tests/Functional</directory>
+        </testsuite>
+        <testsuite name="Test Repository">
+            <directory>tests/Repository</directory>
         </testsuite>
     </testsuites>
     <logging>
@@ -33,6 +37,7 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src/Controller</directory>
             <directory suffix=".php">src/Entity</directory>
+            <directory suffix=".php">src/Repository</directory>
         </whitelist>
     </filter>
 
