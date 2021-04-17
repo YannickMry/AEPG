@@ -54,6 +54,11 @@ class Article
      */
     private $createdAt;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,7 +78,7 @@ class Article
 
     /**
      * Create or upadate slug automatically when creating or updating an Article
-     * 
+     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
