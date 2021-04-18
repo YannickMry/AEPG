@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\NewsRepository;
+use App\Repository\ArticleRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
-class News
+class Article
 {
     /**
      * @ORM\Id
@@ -19,8 +22,20 @@ class News
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 200,
+     *      minMessage = "Le titre doit faire au moins {{limit}} caractères.",
+     *      maxMessage = "Le titre doit faire moins de {{limit}} caractères."
+     * )
      */
     private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -29,6 +44,11 @@ class News
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Le contenu doit faire au moins {{limit}} caractères.",
+     * )
      */
     private $content;
 
@@ -47,6 +67,11 @@ class News
      */
     private $createdAt;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +85,31 @@ class News
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Create or upadate slug automatically when creating or updating an Article
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createOrUpdateSlug()
+    {
+        $slufify = new Slugify();
+
+        $this->slug = $slufify->slugify($this->title);
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
