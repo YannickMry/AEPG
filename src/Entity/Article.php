@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
@@ -21,6 +22,13 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 200,
+     *      minMessage = "Le titre doit faire au moins {{limit}} caractères.",
+     *      maxMessage = "Le titre doit faire moins de {{limit}} caractères."
+     * )
      */
     private $title;
 
@@ -36,6 +44,11 @@ class Article
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 10,
+     *      minMessage = "Le contenu doit faire au moins {{limit}} caractères.",
+     * )
      */
     private $content;
 
