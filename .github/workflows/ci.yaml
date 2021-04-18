@@ -1,5 +1,5 @@
-name: CI
-on: [push]
+name: Continuous Integration
+on: [pull_request]
 jobs:
   ci:
     runs-on: ubuntu-latest
