@@ -2,13 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\PromotionRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PromotionRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PromotionRepository::class)
+ * @UniqueEntity(
+ *      fields={"year"},
+ *      message="L'année {{ value }} est déjà utilisée."
+ * )
  */
 class Promotion
 {
@@ -20,7 +26,11 @@ class Promotion
     private $id;
 
     /**
-     * @ORM\Column(type="date_immutable")
+     * @ORM\Column(type="string", length=4, unique=true)
+     * @Assert\Regex(
+     *      pattern="#^20[0-9]{2}$#",
+     *      message="Vous devez utiliser une année valide. ( ex: 20xx )"
+     * )
      */
     private $year;
 
@@ -39,12 +49,12 @@ class Promotion
         return $this->id;
     }
 
-    public function getYear(): ?\DateTimeImmutable
+    public function getYear(): ?string
     {
         return $this->year;
     }
 
-    public function setYear(\DateTimeImmutable $year): self
+    public function setYear(string $year): self
     {
         $this->year = $year;
 
