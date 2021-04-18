@@ -14,7 +14,6 @@ class PromotionFixtures extends Fixture
     {
         $year = 2021;
         for ($i = 0; $i < 6; $i++) {
-
             $year -= 1;
             $promotion = (new Promotion())
                 ->setYear($year);

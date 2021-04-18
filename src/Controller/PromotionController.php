@@ -14,7 +14,7 @@ class PromotionController extends AbstractController
      */
     public function index(PromotionRepository $promotionRepository): Response
     {
-        return $this->render('promotion/index.html.twig',[
+        return $this->render('promotion/index.html.twig', [
             'promotions' => $promotionRepository->findBy([], ['year' => 'DESC']),
         ]);
     }
