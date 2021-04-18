@@ -1,0 +1,27 @@
+{% extends 'layouts/base_admin.html.twig' %}
+
+{% block title %}AEPG - Promotions{% endblock %}
+
+{% block body %}
+<h1>Promotions</h1>
+<table>
+    <thead>
+        <th>Année</th>
+        <th>Nombre de membre</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for promotion in promotions %}
+        <tr>
+            <td>{{promotion.year}}</td>
+            <td>{{promotion.members|length}}</td>
+            <td>
+                <a href="{{path('admin_promotion_show', {year:promotion.year})}}">voir</a>
+                <a href="{{path('admin_promotion_edit', {year:promotion.year})}}">modifier</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
