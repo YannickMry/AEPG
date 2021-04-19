@@ -43,7 +43,7 @@ class MemberController extends AbstractController
                     ->setIsHidden(1)
                     ->setRenewalAnswerAt(new DateTimeImmutable());
 
-                $this->addFlash('success', "A partir de maintenant, vous n'apparaitrez plus sur le site de l'AEPG ! <\br>
+                $this->addFlash('success', "A partir de maintenant, vous n'apparaitrez plus sur le site de l'AEPG !
                 Toute fois, une nouvelle demande vous sera envoyé l'année prochaine.");
                 break;
 
@@ -53,10 +53,10 @@ class MemberController extends AbstractController
                     ->setIsHidden(1)
                     ->setRenewalAnswerAt(new DateTimeImmutable());
 
-                $this->addFlash('success', "A partir de maintenant, vous n'apparaitrez plus sur le site de l'AEPG ! <\br>
+                $this->addFlash('success', "A partir de maintenant, vous n'apparaitrez plus sur le site de l'AEPG !
                 Si vous souhaitez apparaitre sur le site, vous devrez contacter l'administrateur.");
                 break;
-            
+
             default:
                 $this->addFlash('danger', $errorMsg);
                 break;
