@@ -1,0 +1,32 @@
+{% extends 'layouts/base_admin.html.twig' %}
+
+{% block title %}AEPG - Actualités{% endblock %}
+
+{% block body %}
+<h1>Actualités de l'association</h1>
+<table>
+    <thead>
+        <th>Nom - Prénom</th>
+        <th>Photo</th>
+        <th>Afficher/Cacher</th>
+        <th></th>
+        <th>Dernière mise à jours</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for member in members %}
+        <tr>
+            <td>{{member.fullName}}</td>
+            <td>{{member.picture}}</td>
+            <td>{{member.isHidden ? 'caché' : 'affiché'}}</td>
+            <td>{{member.updatedAt|date('d/m/Y à H:i')}}</td>
+            <td>
+                <a href="{{ path('admin_member_show', {slug: member.slug})}}">voir</a>
+                <a href="{{ path('admin_member_edit', {slug: member.slug})}}">modifier</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

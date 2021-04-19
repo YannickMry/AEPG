@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\MemberRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MemberRepository;
+use DateTimeImmutable;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 
 /**
  * @ORM\Entity(repositoryClass=MemberRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Member
 {
@@ -26,6 +30,11 @@ class Member
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -73,6 +82,27 @@ class Member
      */
     private $promotion;
 
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate(PreUpdateEventArgs $event)
+    {
+        $fieldsToLook = ['lastname', 'firstname', 'email', 'currentJob', 'facebookLink', 'linkedinLink', 'picture'];
+
+        foreach ($event->getEntityChangeSet() as $key => $value) {
+            if (in_array($key, $fieldsToLook)) {
+                $this->updatedAt = new DateTimeImmutable();
+                return;
+            }
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -98,6 +128,31 @@ class Member
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Create or upadate slug automatically when creating or updating an Article
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function createOrUpdateSlug()
+    {
+        $slufify = new Slugify();
+
+        $this->slug = $slufify->slugify($this->getFullName());
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
@@ -208,5 +263,10 @@ class Member
         $this->promotion = $promotion;
 
         return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->lastname . " " . $this->firstname;
     }
 }

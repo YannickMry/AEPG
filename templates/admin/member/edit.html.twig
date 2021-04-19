@@ -1,0 +1,8 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block body %}
+<h1>Modification du membre : {{member.fullName}}</h1>
+
+{% include "layouts/partials/_form.html.twig" with {btn: 'Modifier'} %}
+
+{% endblock %}
