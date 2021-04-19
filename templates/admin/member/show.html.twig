@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Actualités : {{member.fullName}}{% endblock %}
+
+{% block body %}
+<h1>{{member.fullName}}</h1>
+<img src="{{member.picture}}" alt="Photo {{member.fullName}}">
+<p>
+    {{member.currentJob}}
+</p>
+<small>Dernière mise à jours le {{member.updatedAt|date('d/m/Y à H:i')}}</small>
+
+{% endblock %}
