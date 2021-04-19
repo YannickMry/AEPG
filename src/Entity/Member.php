@@ -85,12 +85,22 @@ class Member
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $tokenRenewal;
+    private $renewalToken;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $renewalSentAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $renewalAnswer;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $renewalAnswerAt;
 
     public function __construct()
     {
@@ -275,19 +285,14 @@ class Member
         return $this;
     }
 
-    public function getFullName(): string
+    public function getRenewalToken(): ?string
     {
-        return $this->lastname . " " . $this->firstname;
+        return $this->renewalToken;
     }
 
-    public function getTokenRenewal(): ?string
+    public function setRenewalToken(?string $renewalToken): self
     {
-        return $this->tokenRenewal;
-    }
-
-    public function setTokenRenewal(?string $tokenRenewal): self
-    {
-        $this->tokenRenewal = $tokenRenewal;
+        $this->renewalToken = $renewalToken;
 
         return $this;
     }
@@ -302,5 +307,34 @@ class Member
         $this->renewalSentAt = $renewalSentAt;
 
         return $this;
+    }
+
+    public function getRenewalAnswer(): ?string
+    {
+        return $this->renewalAnswer;
+    }
+
+    public function setRenewalAnswer(?string $renewalAnswer): self
+    {
+        $this->renewalAnswer = $renewalAnswer;
+
+        return $this;
+    }
+
+    public function getRenewalAnswerAt(): ?\DateTimeInterface
+    {
+        return $this->renewalAnswerAt;
+    }
+
+    public function setRenewalAnswerAt(?\DateTimeInterface $renewalAnswerAt): self
+    {
+        $this->renewalAnswerAt = $renewalAnswerAt;
+
+        return $this;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->lastname . " " . $this->firstname;
     }
 }

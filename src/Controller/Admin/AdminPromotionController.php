@@ -109,9 +109,9 @@ class AdminPromotionController extends AbstractController
 
         foreach ($members as $member) {
             $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getFullName()));
-            $member->setTokenRenewal($token);
+            $member->setRenewalToken($token);
 
-            $emailService->sendEmailRenewal($member);
+            $emailService->sendEmailRenewal($member, $token);
 
             $member->setRenewalSentAt(new DateTimeImmutable());
         }

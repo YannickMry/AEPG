@@ -17,13 +17,23 @@ class EmailService
         $this->mailer = $mailer;
     }
 
-    public function sendEmailRenewal(Member $member)
+    public function sendEmailRenewal(Member $member, string $token)
     {
+        $answers = [
+            'oui' => md5('oui'),
+            'non' => md5('non'),
+            'jamais' => md5('jamais'),
+        ];
+
         $email = (new TemplatedEmail())
                 ->from(new Address('noreply@aepg.fr', "Association des étudiants pénalistes de Grenoble"))
                 ->to(new Address($member->getEmail(), $member->getFullName()))
                 ->subject("Renouvellement d'apparition sur le site AEPG")
-                ->htmlTemplate('emails/renewal.html.twig');
+                ->htmlTemplate('emails/renewal.html.twig')
+                ->context([
+                    'token' => $token,
+                    'answers' => $answers,
+                ]);
 
         $this->mailer->send($email);
     }
