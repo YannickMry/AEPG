@@ -82,6 +82,16 @@ class Member
      */
     private $promotion;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tokenRenewal;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $renewalSentAt;
+
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
@@ -268,5 +278,29 @@ class Member
     public function getFullName(): string
     {
         return $this->lastname . " " . $this->firstname;
+    }
+
+    public function getTokenRenewal(): ?string
+    {
+        return $this->tokenRenewal;
+    }
+
+    public function setTokenRenewal(?string $tokenRenewal): self
+    {
+        $this->tokenRenewal = $tokenRenewal;
+
+        return $this;
+    }
+
+    public function getRenewalSentAt(): ?\DateTimeInterface
+    {
+        return $this->renewalSentAt;
+    }
+
+    public function setRenewalSentAt(?\DateTimeInterface $renewalSentAt): self
+    {
+        $this->renewalSentAt = $renewalSentAt;
+
+        return $this;
     }
 }
