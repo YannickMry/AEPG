@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Member;
 use App\Entity\Promotion;
 use App\Repository\PromotionRepository;
+use Cocur\Slugify\Slugify;
 use DateTimeImmutable;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -16,6 +17,7 @@ class MemberFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
+        $slugify = new Slugify();
         $faker = Factory::create('fr_FR');
         $genders = ['male', 'female'];
         $bool = [true, false];
@@ -37,7 +39,13 @@ class MemberFixtures extends Fixture implements DependentFixtureInterface
                 $member = (new Member())
                     ->setLastname($lastname)
                     ->setFirstname($firstname)
-                    ->setEmail(sprintf('%s.%s@test.com', strtolower($lastname), strtolower($firstname)))
+                    ->setEmail(
+                        sprintf(
+                            '%s.%s@test.com',
+                            strtolower($slugify->slugify($lastname)),
+                            strtolower($slugify->slugify($firstname))
+                        )
+                    )
                     ->setPicture($picture)
                     ->setFacebookLink(rand(0, 3) === 1 ? 'facebook' : null)
                     ->setLinkedinLink(rand(0, 1) === 1 ? 'linkedin' : null)

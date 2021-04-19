@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Promotion;
 use App\Form\PromotionType;
 use App\Repository\PromotionRepository;
+use App\Service\EmailService;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,5 +92,34 @@ class AdminPromotionController extends AbstractController
             'year' => $year,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/{year}/send-appear-renewal", name="send_appear_renewal")
+     *
+     * @param Promotion $promotion
+     * @return Response
+     */
+    public function sendEmailToAllMembers(
+        Promotion $promotion,
+        EntityManagerInterface $em,
+        EmailService $emailService
+    ): Response {
+        $members = $promotion->getMembers();
+
+        foreach ($members as $member) {
+            $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getFullName()));
+            $member->setTokenRenewal($token);
+
+            $emailService->sendEmailRenewal($member);
+
+            $member->setRenewalSentAt(new DateTimeImmutable());
+        }
+
+        $em->flush();
+
+        $this->addFlash('success', "Les emails ont bien été envoyés !");
+
+        return $this->redirectToRoute('admin_promotion_show', ['year' => $promotion->getYear()]);
     }
 }
