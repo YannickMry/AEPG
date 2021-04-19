@@ -6,5 +6,7 @@
     Cliquez sur le lien ci dessous.
 </p>    
 <br>
-<a href="#">Oui</a> | <a href="#">Non</a>
+<a href="{{path('member_renewal_answer', {token: token, answer: answers['oui']})}}">Oui</a> | 
+<a href="{{path('member_renewal_answer', {token: token, answer: answers['non']})}}">Non</a> | 
+<a href="{{path('member_renewal_answer', {token: token, answer: answers['jamais']})}}">Jamais</a>
 {% endblock %}
