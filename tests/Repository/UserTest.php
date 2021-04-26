@@ -15,7 +15,7 @@ class UserTest extends KernelTestCase
         self::bootKernel();
         $users = self::$container->get(UserRepository::class)->count([]);
 
-        $this->assertEquals(10, $users);
+        $this->assertEquals(11, $users);
     }
 
     public function testUpgradePassword()
