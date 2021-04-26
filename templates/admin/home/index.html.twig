@@ -3,5 +3,93 @@
 {% block title %}AEPG - Administration{% endblock %}
 
 {% block body %}
-<h1>Espace administration</h1>
+<div id="articles" class="row d-flex justify-content-center">
+    <div class="col-12">
+        <div class="mt-4 card">
+            <div class="card-body">
+                <h2>Articles</h2>
+                <table class="table">
+                    <thead>
+                        <th>Image</th>
+                        <th>Titre</th>
+                        <th>Cacher/Afficher</th>
+                        <th>Visibilité</th>
+                        <th>Créé le</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        {% for article in articles %}
+                        <tr>
+                            <td>
+                                <img src="{{article.image}}" alt="" class="img img-table">
+                            </td>
+                            <td>{{article.title}}</td>
+                            <td>
+                                <input type="checkbox" {{article.isHidden ? "checked='checked'"}}>
+                            </td>
+                            <td>
+                                {% if article.isHidden %}
+                                    <span class="badge bg-hidden text-muted">Invisible</span>
+                                {% else %}
+                                    <span class="badge bg-visible">Visible</span>
+                                {% endif %}
+                            </td>
+                            <td>{{article.createdAt|date('d/m/Y à H:i')}}</td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="promotions" class="mt-3 row d-flex d-flex justify-content-center">
+    <div class="col-12 col-md" id="details">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <th>Année</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for promotion in promotions %}
+                        <tr>
+                            <td>{{promotion.year}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md" id="members">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <th>Nom - prénom</th>
+                        <th></th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        {% for member in members %}
+                        <tr>
+                            <td>{{member.fullName}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

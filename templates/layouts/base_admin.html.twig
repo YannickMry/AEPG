@@ -4,15 +4,25 @@
         <meta charset="UTF-8">
         <title>{% block title %}AEPG - Administration{% endblock %}</title>
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
+            {{ encore_entry_link_tags('app_admin') }}
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+            {{ encore_entry_script_tags('app_admin') }}
         {% endblock %}
     </head>
     <body>
-        {% include "layouts/partials/_flash_messages.html.twig" %}
-        {% block body %}{% endblock %}
+        <header class="header">
+            {% include "layouts/partials/admin/_navbar.html.twig" %}
+        </header>
+        <main>
+            {% include "layouts/partials/admin/_side_menu.html.twig" %}
+            <section class="container">
+                {% block body %}{% endblock %}
+            </section>
+        </main>
+        <footer>
+            
+        </footer>
     </body>
 </html>

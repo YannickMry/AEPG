@@ -1,0 +1,125 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+$visible: hsl(200, 100%, 70%);
+$hidden: hsla(200, 100%, 75%, 0.35);
+
+
+a {
+    color: #ffc107;
+    text-decoration: none;
+}
+
+header {
+    background-color: #293e4c;
+}
+
+.nav a {
+    color: #e7e7e7;
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav a span {
+    font-weight: 600;
+}
+
+.nav-logo {
+    width: auto;
+    height: 60px;
+}
+
+/* MAIN */
+
+main {
+    display: flex;
+}
+
+/* Side bar */
+
+aside {
+    width: 250px;
+    min-height: calc(100vh - 60px);
+    padding: 10px 10px 0 10px;
+    background-color: #293e4c;
+    box-shadow: 2px 0 20px #293e4c;
+}
+
+.user {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 25px 0 50px;
+}
+
+img.user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-informations {
+    margin-left: 5px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    color: #ffc107;
+    cursor: pointer;
+}
+
+.user-name {
+    display: block;
+    font-weight: 600;
+}
+
+.user-email {
+    font-size: 0.8rem;
+    color: #ffdd75;
+    opacity: 0.7;
+}
+
+.nav-side a {
+    display: block;
+    margin: 15px 20px;
+    padding: 10px 20px;
+    font-weight: 600;
+    transition: .4s;
+}
+
+.nav-side a:hover {
+    color: #ffe083;
+}
+
+.nav-side a.active {
+    color: #2a353c;
+    border: 1px solid #ffc107;
+    background-color: #ffc107;
+
+}
+
+.dropdown-toggle {
+    white-space: normal;
+}
+
+section {
+    max-width: calc(100vw - 250px);
+}
+
+// Badge tableau article
+.bg-visible {
+    background-color: $visible;
+    border-color: $visible;
+}
+.bg-hidden {
+    background-color: $hidden;
+    border-color: $hidden;
+    color:rgb(255, 255, 255) !important;
+}
+
+.img {
+    width: auto;
+    height: 150px;
+}
+
+.img-table {
+    height: 50px;
+}
