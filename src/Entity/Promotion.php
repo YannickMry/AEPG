@@ -95,4 +95,20 @@ class Promotion
     {
         return $this->year;
     }
+
+    public function nbrHidden(): ?int
+    {
+        $result = 0;
+        foreach ($this->members as $member) {
+            if ($member->getIsHidden()) {
+                $result += 1;
+            }
+        }
+        return $result;
+    }
+
+    public function nbrDisplayed()
+    {
+        return (count($this->members) - $this->nbrHidden());
+    }
 }
