@@ -1,0 +1,19 @@
+<aside>
+    <div class="user">
+        <img class="user-img" src="{{asset('images/user-ano.jpg')}}" alt="Logo utilisateur sans image">
+        <div class="user-informations dropdown-toggle" id="dropdown-user" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="user-name">xx</span>
+            <span class="user-email">{{app.user.username}}</span>
+        </div>
+        <ul class="dropdown-menu" aria-labelledby="dropdown-user">
+            <li><a class="dropdown-item" href="#">Profil</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a></li>
+        </ul>
+    </div>
+    <nav class="nav-side">
+        <a href="{{path('admin_home')}}" class="{{app.request.get('_route') is same as('admin_home') ? 'active'}}" >Dashboard</a>
+        <a href="{{path('admin_article_index')}}" class="{{app.request.get('_route') is same as('admin_article_index') ? 'active'}}">Articles</a>
+        <a href="{{path('admin_promotion_index')}}" class="{{app.request.get('_route') is same as('admin_promotion_index') ? 'active'}}">Promotions</a>
+    </nav>
+</aside>

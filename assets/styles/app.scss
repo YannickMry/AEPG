@@ -1,5 +1,42 @@
 @import "~bootstrap/scss/bootstrap";
 
-body {
-    background-color: $primary;
+$aepg-blue: #2962FF;
+$aepg-indigo: #6610f2;
+$aepg-purple: #7460ee;
+$aepg-pink: #e83e8c;
+$aepg-red: #f62d51;
+$aepg-orange: #fb8c00;
+$aepg-yellow: #ffbc34;
+$aepg-green: #36bea6;
+$aepg-teal: #20c997;
+$aepg-cyan: #4fc3f7;
+$aepg-white: #fff;
+$aepg-gray: hsl(208, 15%, 65%);
+$aepg-gray-dark: #343a40;
+$aepg-primary: #7460ee;
+$aepg-secondary: #6c757d;
+$aepg-success: #36bea6;
+$aepg-info: #2962FF;
+$aepg-warning: #ffbc34;
+$aepg-danger: #f62d51;
+$aepg-light: #f8f9fa;
+$aepg-dark: #343a40;
+$aepg-cyan: #4fc3f7;
+$aepg-orange: #fb8c00;
+$aepg-purple: #7460ee;
+$aepg-bleu-dark-grey: #414755;
+
+.vh-100 {
+    min-height: 100vh;
+}
+
+// navbar
+.bg-dark {
+    background-color: $aepg-gray !important;
+}
+
+// side menu
+
+#menu {
+    background-color: $aepg-light;
 }

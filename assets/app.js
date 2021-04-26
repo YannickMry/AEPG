@@ -14,8 +14,7 @@ import $ from 'jquery';
 // start the Stimulus application
 import './bootstrap';
 
-console.log('Made with ❤️');
 
 $(function(){
-    $('h1').css("color", "green");
+    console.log('Made with ❤️');
 });
