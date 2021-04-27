@@ -16,7 +16,7 @@ class AdminAjaxArticleController extends AbstractController
 {
     /**
      * Permet de switch la valeur de la propriété IsDisplayed
-     * 
+     *
      * @Route("/switch-is-displayed", name="switch_is_displayed", methods="POST")
      *
      * @param Request $request
