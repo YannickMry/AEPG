@@ -100,7 +100,7 @@ class Promotion
     {
         $result = 0;
         foreach ($this->members as $member) {
-            if ($member->getIsHidden()) {
+            if (!$member->getisDisplayed()) {
                 $result += 1;
             }
         }

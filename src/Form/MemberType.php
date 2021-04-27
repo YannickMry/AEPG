@@ -38,8 +38,8 @@ class MemberType extends AbstractType
                 'required'  => false
             ])
             ->add('picture')
-            ->add('isHidden', CheckboxType::class, [
-                'label'     => 'Voulez-vous cacher ce profil ?',
+            ->add('isDisplayed', CheckboxType::class, [
+                'label'     => 'Afficher le profil ?',
                 'required'  => false
             ])
             ->add('promotion')

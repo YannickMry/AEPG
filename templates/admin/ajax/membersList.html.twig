@@ -15,7 +15,7 @@
                 <tr>
                     <td>{{member.fullName}}</td>
                     <td>
-                        <input type="checkbox" {{member.isHidden ? "checked='checked'"}}>
+                        <input type="checkbox" {{member.isDisplayed ? "checked='checked'" : ""}}>
                     </td>
                     <td>
                         {{member.updatedAt|date('d/m/Y à H:i')}}
