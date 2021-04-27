@@ -55,7 +55,7 @@ class Article
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isHidden;
+    private $isDisplayed;
 
     /**
      * @ORM\Column(type="text")
@@ -138,14 +138,14 @@ class Article
         return $this;
     }
 
-    public function getIsHidden(): ?bool
+    public function getisDisplayed(): ?bool
     {
-        return $this->isHidden;
+        return $this->isDisplayed;
     }
 
-    public function setIsHidden(bool $isHidden): self
+    public function setisDisplayed(bool $isDisplayed): self
     {
-        $this->isHidden = $isHidden;
+        $this->isDisplayed = $isDisplayed;
 
         return $this;
     }

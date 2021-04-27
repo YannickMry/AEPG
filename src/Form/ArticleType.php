@@ -22,8 +22,8 @@ class ArticleType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu',
             ])
-            ->add('isHidden', CheckboxType::class, [
-                'label' => 'Voulez-vous cacher l\'article au public ?',
+            ->add('isDisplayed', CheckboxType::class, [
+                'label' => "Afficher l'article au public ?",
             ])
             ->add('author', TextType::class, [
                 'label' => 'Auteur(s)',

@@ -18,7 +18,7 @@ class ArticleTest extends TestCase
         $content = 'test';
         $image = 'image.png';
         $author = 'Jean Dupont';
-        $isHidden = false;
+        $isDisplayed = true;
         $createdAt = new DateTimeImmutable('now');
 
         $article = new Article();
@@ -28,7 +28,7 @@ class ArticleTest extends TestCase
             ->setContent($content)
             ->setImage($image)
             ->setAuthor($author)
-            ->setIsHidden($isHidden)
+            ->setisDisplayed($isDisplayed)
             ->setCreatedAt($createdAt);
 
         $this->assertInstanceOf(Article::class, $article);
@@ -38,7 +38,7 @@ class ArticleTest extends TestCase
         $this->assertEquals($content, $article->getContent());
         $this->assertEquals($image, $article->getImage());
         $this->assertEquals($author, $article->getAuthor());
-        $this->assertEquals($isHidden, $article->getIsHidden());
+        $this->assertEquals($isDisplayed, $article->getisDisplayed());
         $this->assertEquals($createdAt, $article->getCreatedAt());
     }
 }

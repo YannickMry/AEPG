@@ -17,7 +17,7 @@ class ArticleController extends AbstractController
     {
 
         return $this->render('article/index.html.twig', [
-            'articles' => $articleRepository->findBy(['isHidden' => false], ['createdAt' => 'DESC']),
+            'articles' => $articleRepository->findBy(['isDisplayed' => true], ['createdAt' => 'DESC']),
         ]);
     }
 
