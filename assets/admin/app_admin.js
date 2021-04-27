@@ -51,8 +51,7 @@ $(function() {
                     .text('Invisible');
               }
           }).fail(function(xhr) {
-              let response = JSON.parse(xhr); 
-              alert(response.message);
+              alert("Une erreur est survenue...");
           });
     })
 })
