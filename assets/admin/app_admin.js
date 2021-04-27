@@ -1,57 +1,90 @@
-import $ from 'jquery';
+import $, { event } from 'jquery';
 import './styles/app_admin.scss';
 
 import { Tooltip, Toast, Popover } from 'bootstrap';
 
 console.log('Made with ❤️️ by Yannick MAURY');
 
-$(function() {
-    $('.js-members-list').on("click", function(e){
-        e.preventDefault();
-        e.stopPropagation();
+// Event Listener
+$('.js-members-list').on("click", ajaxShowMemberList)
+$('.js-switch-article').on("click", ajaxSwitchDisplayArticle)
+$('.js-switch-member').on("click", ajaxSwitchDisplayMember);
 
-        let data = {
-            'year': e.target.dataset.year,
-        };
+// AJAX Function
+function ajaxShowMemberList(event){    
+    event.preventDefault();
+    event.stopPropagation();
 
-        $.ajax({
-            method: "POST",
-            url: urlAdminAjaxMemberRenderList,
-            data: data,
-            dataType: "html",
+    let data = {
+        'year': $(this).attr('data-year'),
+    };
 
-          }).done(function(xhr) {
-              $('#members').children("div").replaceWith(xhr);
-          });
-    })
+    $.ajax({
+        method: "POST",
+        url: urlAdminAjaxMemberRenderList,
+        data: data,
+        dataType: "html",
 
-    $('.js-switch-article').on("click", function(e){
+    }).done(function(xhr) {
+        $('#members').children("div").replaceWith(xhr);
+        $('.js-switch-member').on("click", ajaxSwitchDisplayMember);
+    });
+}
 
-        let data = {
-            'id': e.target.dataset.id,
-        };
+function ajaxSwitchDisplayArticle(){
 
-        $.ajax({
-            method: "POST",
-            url: urlAdminAjaxArticleSwitchIsDisplayed,
-            data: data,
-            dataType: "html",
+    let data = {
+        'id': $(this).attr('data-id'),
+    };
 
-          }).done(function(xhr) {
-              let response = JSON.parse(xhr);
-              if(response.isDisplayed) {
-                  $('#status-article-' + response.id).children('span')
-                    .removeClass(['bg-hidden','text-muted'])
-                    .addClass('bg-visible')
-                    .text('Visible');
-              } else {
-                  $('#status-article-' + response.id).children('span')
-                    .removeClass('bg-visible')
-                    .addClass(['bg-hidden','text-muted'])
-                    .text('Invisible');
-              }
-          }).fail(function(xhr) {
-              alert("Une erreur est survenue...");
-          });
-    })
-})
+    $.ajax({
+        method: "POST",
+        url: urlAdminAjaxArticleSwitchIsDisplayed,
+        data: data,
+        dataType: "json",
+
+      }).done(function(xhr) {
+          if(xhr.isDisplayed) {
+              $('#status-article-' + xhr.id).children('span')
+                .removeClass(['bg-hidden','text-muted'])
+                .addClass('bg-visible')
+                .text('Visible');
+          } else {
+              $('#status-article-' + xhr.id).children('span')
+                .removeClass('bg-visible')
+                .addClass(['bg-hidden','text-muted'])
+                .text('Invisible');
+          }
+      }).fail(function(xhr) {
+            alert(xhr.responseJSON.status + " : " + xhr.responseJSON.message);
+      });
+}
+
+function ajaxSwitchDisplayMember(){
+
+    let data = {
+        'id': $(this).attr('data-id'),
+    };
+
+    $.ajax({
+        method: "POST",
+        url: urlAdminAjaxMemberSwitchIsDisplayed,
+        data: data,
+        dataType: "json",
+
+      }).done(function(xhr) {
+        //   if(xhr.isDisplayed) {
+        //       $('#status-article-' + xhr.id).children('span')
+        //         .removeClass(['bg-hidden','text-muted'])
+        //         .addClass('bg-visible')
+        //         .text('Visible');
+        //   } else {
+        //       $('#status-article-' + xhr.id).children('span')
+        //         .removeClass('bg-visible')
+        //         .addClass(['bg-hidden','text-muted'])
+        //         .text('Invisible');
+        //   }
+      }).fail(function(xhr) {
+          alert(xhr.responseJSON.status + " : " + xhr.responseJSON.message);
+      });
+}
