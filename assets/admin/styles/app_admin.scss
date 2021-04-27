@@ -108,13 +108,54 @@ section {
 .bg-visible {
     background-color: $visible;
     border-color: $visible;
+    transition: .5s;
 }
 .bg-hidden {
     background-color: $hidden;
     border-color: $hidden;
     color:rgb(255, 255, 255) !important;
+    transition: .5s;
 }
 
+// Switch button
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+.switch input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    outline: none;
+    background-color: rgb(202, 202, 202);
+    border: 1px solid #adb5bd;
+    box-shadow: 0 0 5px rgba(0,0,0,0.6);
+    border-radius: 25px;
+    transition: .5s;
+}
+.switch input:checked {
+    background-color: #63cdff;
+}
+.switch input:before {
+    content: '';
+    position: absolute;
+    width: calc(20px - 2px);
+    height: calc(20px - 2px);
+    border-radius: 13px;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    transition: .5s;
+}
+.switch input:checked:before {
+    left: 22px;
+} 
+
+// Images
 .img {
     width: auto;
     height: 150px;

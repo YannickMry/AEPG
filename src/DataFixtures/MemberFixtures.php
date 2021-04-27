@@ -49,7 +49,7 @@ class MemberFixtures extends Fixture implements DependentFixtureInterface
                     ->setPicture($picture)
                     ->setFacebookLink(rand(0, 3) === 1 ? 'facebook' : null)
                     ->setLinkedinLink(rand(0, 1) === 1 ? 'linkedin' : null)
-                    ->setIsHidden(rand(0, 6) === 1 ? $bool[0] : $bool[1])
+                    ->setisDisplayed(rand(0, 6) === 1 ? $bool[0] : $bool[1])
                     ->setPromotion($promotion)
                     ->setCreatedAt(new DateTimeImmutable())
                     ->setUpdatedAt(new DateTimeImmutable());

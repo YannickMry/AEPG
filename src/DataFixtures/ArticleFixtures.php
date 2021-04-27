@@ -31,7 +31,7 @@ class ArticleFixtures extends Fixture
                 ->setContent($faker->text())
                 ->setImage($image)
                 ->setAuthor($faker->name())
-                ->setIsHidden($bool[rand(0, 1)])
+                ->setisDisplayed($bool[rand(0, 1)])
                 ->setCreatedAt(DateTimeImmutable::createFromMutable($date));
 
             $manager->persist($article);

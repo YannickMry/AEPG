@@ -15,11 +15,9 @@ class AdminHomeController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository, PromotionRepository $promotionRepository): Response
     {
-        $members = $promotionRepository->findOneByYear('2020');
         return $this->render('admin/home/index.html.twig', [
             'articles'      => $articleRepository->findBy([], ['createdAt' => 'DESC'], 5),
             'promotions'    => $promotionRepository->findBy([], ['year' => 'DESC']),
-            'members'       => $members
         ]);
     }
 }

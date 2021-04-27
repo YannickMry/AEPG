@@ -64,7 +64,7 @@ class Member
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isHidden;
+    private $isDisplayed;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -237,14 +237,14 @@ class Member
         return $this;
     }
 
-    public function getIsHidden(): ?bool
+    public function getisDisplayed(): ?bool
     {
-        return $this->isHidden;
+        return $this->isDisplayed;
     }
 
-    public function setIsHidden(bool $isHidden): self
+    public function setisDisplayed(bool $isDisplayed): self
     {
-        $this->isHidden = $isHidden;
+        $this->isDisplayed = $isDisplayed;
 
         return $this;
     }

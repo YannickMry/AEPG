@@ -32,7 +32,7 @@ class MemberController extends AbstractController
             case md5('oui'):
                 $member->setRenewalToken(null)
                     ->setRenewalAnswer('oui')
-                    ->setIsHidden(0)
+                    ->setisDisplayed(true)
                     ->setRenewalAnswerAt(new DateTimeImmutable());
                 $this->addFlash('success', "A partir de maintenant, vous apparaitrez sur le site de l'AEPG !");
                 break;
@@ -40,7 +40,7 @@ class MemberController extends AbstractController
             case md5('non'):
                 $member->setRenewalToken(null)
                     ->setRenewalAnswer('non')
-                    ->setIsHidden(1)
+                    ->setisDisplayed(false)
                     ->setRenewalAnswerAt(new DateTimeImmutable());
 
                 $this->addFlash('success', "A partir de maintenant, vous n'apparaitrez plus sur le site de l'AEPG !
@@ -50,7 +50,7 @@ class MemberController extends AbstractController
             case md5('jamais'):
                 $member->setRenewalToken(null)
                     ->setRenewalAnswer('jamais')
-                    ->setIsHidden(1)
+                    ->setisDisplayed(false)
                     ->setRenewalAnswerAt(new DateTimeImmutable());
 
                 $this->addFlash('success', "A partir de maintenant, vous n'apparaitrez plus sur le site de l'AEPG !

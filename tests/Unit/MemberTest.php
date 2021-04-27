@@ -16,7 +16,7 @@ class MemberTest extends TestCase
     private const FACEBOOK_LINK = 'https://facebook.com';
     private const LINKEDIN_LINK = 'https://linkedin.com';
     private const PICTURE = 'image.png';
-    private const IS_HIDDEN = false;
+    private const IS_DISPLAYED = true;
 
     public function testMemberEntityGetterAndSetter()
     {
@@ -33,7 +33,7 @@ class MemberTest extends TestCase
             ->setFacebookLink(self::FACEBOOK_LINK)
             ->setLinkedinLink(self::LINKEDIN_LINK)
             ->setPicture(self::PICTURE)
-            ->setIsHidden(self::IS_HIDDEN)
+            ->setisDisplayed(self::IS_DISPLAYED)
             ->setCreatedAt($createdAt)
             ->setUpdatedAt($updatedAt)
             ->setPromotion($promotion);
@@ -47,7 +47,7 @@ class MemberTest extends TestCase
         $this->assertEquals(self::FACEBOOK_LINK, $member->getFacebookLink());
         $this->assertEquals(self::LINKEDIN_LINK, $member->getLinkedinLink());
         $this->assertEquals(self::PICTURE, $member->getPicture());
-        $this->assertEquals(self::IS_HIDDEN, $member->getIsHidden());
+        $this->assertEquals(self::IS_DISPLAYED, $member->getisDisplayed());
         $this->assertEquals($createdAt, $member->getCreatedAt());
         $this->assertEquals($updatedAt, $member->getUpdatedAt());
         $this->assertEquals($promotion, $member->getPromotion());

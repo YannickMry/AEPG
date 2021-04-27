@@ -18,7 +18,7 @@
         <tr>
             <td>{{member.fullName}}</td>
             <td>{{member.picture}}</td>
-            <td>{{member.isHidden ? 'caché' : 'affiché'}}</td>
+            <td>{{member.isDisplayed ? 'caché' : 'affiché'}}</td>
             <td>{{member.updatedAt|date('d/m/Y à H:i')}}</td>
             <td>
                 <a href="{{ path('admin_member_show', {slug: member.slug})}}">voir</a>

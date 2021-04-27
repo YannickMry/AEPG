@@ -15,7 +15,9 @@
                 <tr>
                     <td>{{member.fullName}}</td>
                     <td>
-                        <input type="checkbox" {{member.isHidden ? "checked='checked'"}}>
+                        <div class="switch">
+                            <input class="js-switch-member" type="checkbox" {{member.isDisplayed ? "checked='checked'" : ""}} data-id="{{member.id}}">
+                        </div>
                     </td>
                     <td>
                         {{member.updatedAt|date('d/m/Y à H:i')}}
