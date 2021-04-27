@@ -27,13 +27,15 @@
                             </td>
                             <td>{{article.title}}</td>
                             <td>
-                                <input type="checkbox" {{article.isHidden ? "checked='checked'"}}>
+                                <div class="switch">
+                                    <input class="js-switch-article" type="checkbox" {{article.isDisplayed ? "checked='checked'" : ""}} data-id="{{article.id}}">
+                                </div>
                             </td>
-                            <td>
-                                {% if article.isHidden %}
-                                    <span class="badge bg-hidden text-muted">Invisible</span>
+                            <td id="status-article-{{article.id}}">
+                                {% if article.isDisplayed %}
+                                <span class="badge bg-visible">Visible</span>
                                 {% else %}
-                                    <span class="badge bg-visible">Visible</span>
+                                <span class="badge bg-hidden text-muted">Invisible</span>
                                 {% endif %}
                             </td>
                             <td>{{article.createdAt|date('d/m/Y à H:i')}}</td>
@@ -114,5 +116,6 @@
 <script>
     // URL
     const urlAdminAjaxMemberRenderList = "{{url('admin_ajax_member_render_list')|escape('js')}}";
+    const urlAdminAjaxArticleSwitchIsDisplayed = "{{url('admin_ajax_article_switch_is_displayed')|escape('js')}}";
 </script>
 {% endblock %}

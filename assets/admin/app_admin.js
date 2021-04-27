@@ -24,4 +24,35 @@ $(function() {
               $('#members').children("div").replaceWith(xhr);
           });
     })
+
+    $('.js-switch-article').on("click", function(e){
+
+        let data = {
+            'id': e.target.dataset.id,
+        };
+
+        $.ajax({
+            method: "POST",
+            url: urlAdminAjaxArticleSwitchIsDisplayed,
+            data: data,
+            dataType: "html",
+
+          }).done(function(xhr) {
+              let response = JSON.parse(xhr);
+              if(response.isDisplayed) {
+                  $('#status-article-' + response.id).children('span')
+                    .removeClass(['bg-hidden','text-muted'])
+                    .addClass('bg-visible')
+                    .text('Visible');
+              } else {
+                  $('#status-article-' + response.id).children('span')
+                    .removeClass('bg-visible')
+                    .addClass(['bg-hidden','text-muted'])
+                    .text('Invisible');
+              }
+          }).fail(function(xhr) {
+              let response = JSON.parse(xhr); 
+              alert(response.message);
+          });
+    })
 })
