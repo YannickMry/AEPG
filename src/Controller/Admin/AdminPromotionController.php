@@ -108,15 +108,11 @@ class AdminPromotionController extends AbstractController
         $members = $promotion->getMembers();
 
         foreach ($members as $member) {
-            $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getFullName()));
-            $member->setRenewalToken($token);
 
-            $emailService->sendEmailRenewal($member, $token);
+            $emailService->sendEmailRenewal($member);
 
             $member->setRenewalSentAt(new DateTimeImmutable());
         }
-
-        $em->flush();
 
         $this->addFlash('success', "Les emails ont bien été envoyés !");
 

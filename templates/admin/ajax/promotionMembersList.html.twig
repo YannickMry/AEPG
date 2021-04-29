@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-around">
-                <a href="#" class="btn btn-primary" onclick="confirm('Voulez-vous vraiment qu\'un email concernant le renouvellement d\'apparition soit envoyé à {{member.fullName}} ?')">
+                <a href="{{path('admin_member_send_one_renewal', {slug: member.slug})}}" class="btn btn-primary" onclick="confirm('Voulez-vous vraiment qu\'un email concernant le renouvellement d\'apparition soit envoyé à {{member.fullName}} ?')">
                     <i class="fas fa-paper-plane"></i> 
                     Envoyer le renouvellement
                 </a>
