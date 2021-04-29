@@ -73,7 +73,7 @@ class AdminMemberController extends AbstractController
 
     /**
      * Envoi un email de renouvellement à un seul membre
-     * 
+     *
      * @Route("/{slug}/envoyer-un-mail-de-renouvellement", name="send_one_renewal", methods="GET")
      *
      * @param Member $member
