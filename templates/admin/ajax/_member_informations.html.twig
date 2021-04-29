@@ -6,7 +6,7 @@
 <li class="list-group-item bg-light fw-bold border-start border-end border-bottom">
     Renouvellement d'apparition
 </li>
-{% if member.renewalToken %}
+{% if member.renewalSentAt %}
 <li class="list-group-item">
     <div class="alert alert-success text-center p-2 mb-0">
         Envoyé le : {{member.renewalSentAt|date('d/m/Y à H:i')}}

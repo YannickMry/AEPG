@@ -102,7 +102,6 @@ class AdminPromotionController extends AbstractController
      */
     public function sendEmailToAllMembers(
         Promotion $promotion,
-        EntityManagerInterface $em,
         EmailService $emailService
     ): Response {
         $members = $promotion->getMembers();
@@ -110,8 +109,6 @@ class AdminPromotionController extends AbstractController
         foreach ($members as $member) {
 
             $emailService->sendEmailRenewal($member);
-
-            $member->setRenewalSentAt(new DateTimeImmutable());
         }
 
         $this->addFlash('success', "Les emails ont bien été envoyés !");

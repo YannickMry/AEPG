@@ -3,9 +3,10 @@
 namespace App\Service;
 
 use App\Entity\Member;
+use DateTimeImmutable;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Mailer\MailerInterface;
 
 class EmailService
@@ -29,7 +30,10 @@ class EmailService
 
         $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getSlug()));
 
-        $member->setRenewalToken($token);
+        $member->setRenewalAnswer(null)
+            ->setRenewalAnswerAt(null)
+            ->setRenewalToken($token)
+            ->setRenewalSentAt(new DateTimeImmutable());
 
         $this->em->flush();
 
