@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Member;
+use App\Entity\Promotion;
 use App\Form\MemberType;
 use App\Repository\MemberRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -32,6 +33,11 @@ class AdminMemberController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response
     {
         $member = new Member();
+
+        if ($request->query->get('year')) {
+            $promotion = $em->getRepository(Promotion::class)->findOneBy(['year' => $request->query->get('year')]);
+            $member->setPromotion($promotion);
+        }
 
         $form = $this->createForm(MemberType::class, $member);
 

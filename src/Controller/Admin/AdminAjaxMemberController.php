@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Member;
+use App\Entity\Promotion;
 use App\Repository\MemberRepository;
-use App\Repository\PromotionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,15 +21,26 @@ class AdminAjaxMemberController extends AbstractController
      *
      * @Route("/render-list-of-members", name="render_list", methods="POST")
      */
-    public function ajaxShowMembersOfPromotion(Request $request, PromotionRepository $promotionRepository): Response
+    public function ajaxShowMembersOfPromotion(string $view = null): Response
     {
+        /** @var Request $request */
+        $request = $this->container->get('request_stack')->getCurrentRequest();
+
+        /** @var PromotionRepository $promotionRepository */
+        $promotionRepository = $this->getDoctrine()->getManager()->getRepository(Promotion::class);
+
+        /** @var Promotion $promotion */
         $promotion = $promotionRepository->findOneBy(['year' => $request->request->get('year')]);
 
         if (!$promotion) {
             $promotion = $promotionRepository->findOneBy([], ['year' => 'DESC']);
         }
 
-        return $this->render('admin/ajax/membersList.html.twig', [
+        if ($view === null) {
+            $view = $request->request->get('view');
+        }
+
+        return $this->render("admin/ajax/$view.html.twig", [
             "promotion" => $promotion,
             "members"   => $promotion->getMembers(),
         ]);
@@ -60,6 +71,9 @@ class AdminAjaxMemberController extends AbstractController
 
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->json(['isDisplayed' => $member->getisDisplayed()], 200);
+        return $this->json([
+            'fullName'      => $member->getFullName(),
+            'isDisplayed'   => $member->getisDisplayed()
+        ], 200);
     }
 }

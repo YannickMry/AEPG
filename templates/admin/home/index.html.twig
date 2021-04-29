@@ -2,12 +2,18 @@
 
 {% block title %}AEPG - Administration{% endblock %}
 
+{% set view = "dashboardMembersList" %}
+
 {% block body %}
 <div id="articles" class="row d-flex justify-content-center">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
                 <h4 class="text-warning">Articles</h4>
+                <a href="{{ path('admin_article_create')}}" class="btn btn-outline-primary ">
+                    Ajouter
+                    <i class="fas fa-plus"></i>
+                </a>
             </div>
             <div class="card-body">
                 <table class="table">
@@ -67,8 +73,15 @@
 <div id="promotions" class="mt-3 row d-flex d-flex justify-content-center">
     <div class="col-12 col-md" id="years">
         <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h4 class="text-warning">Promotions</h4>
+                <a href="{{ path('admin_promotion_create')}}" class="btn btn-outline-primary ">
+                    Ajouter
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-hover">
                     <thead>
                         <th>Année</th>
                         <th>Nb caché</th>
@@ -78,10 +91,10 @@
                     </thead>
                     <tbody>
                         {% for promotion in promotions %}
-                        <tr>
-                            <td>
-                                <a href="#" data-year="{{promotion.year}}" class="js-members-list">{{promotion.year}}</a>
-                            </td>
+                        <tr id="promotion-{{promotion.year}}">
+                            <th>
+                                <a href="#" data-year="{{promotion.year}}" data-view="{{view}}" class="js-members-list">{{promotion.year}}</a>
+                            </th>
                             <td>{{promotion.nbrHidden}}</td>
                             <td>{{promotion.nbrDisplayed}}</td>
                             <td>{{promotion.members|length}}</td>
@@ -110,13 +123,7 @@
         </div>
     </div>
     <div class="col-12 col-md" id="members">
-        {{ render(controller('App\\Controller\\Admin\\AdminAjaxMemberController::ajaxShowMembersOfPromotion', {year: 0})) }}
+        {{ render(controller('App\\Controller\\Admin\\AdminAjaxMemberController::ajaxShowMembersOfPromotion', {year: 0, view: view})) }}
     </div>
 </div>
-<script>
-    // URL
-    const urlAdminAjaxMemberRenderList = "{{url('admin_ajax_member_render_list')|escape('js')}}";
-    const urlAdminAjaxArticleSwitchIsDisplayed = "{{url('admin_ajax_article_switch_is_displayed')|escape('js')}}";
-    const urlAdminAjaxMemberSwitchIsDisplayed = "{{url('admin_ajax_member_switch_is_displayed')|escape('js')}}";
-</script>
 {% endblock %}

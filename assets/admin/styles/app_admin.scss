@@ -153,7 +153,17 @@ section {
 }
 .switch input:checked:before {
     left: 22px;
-} 
+}
+
+// Onglet promotion
+#members .card {
+    transition: .5s;
+}
+.card.active {
+    box-shadow: 0 0 5px #63ceff73,
+                0 0 10px #63cdff73,
+                0 0 15px #63cdff73;
+}
 
 // Images
 .img {
@@ -161,6 +171,30 @@ section {
     height: 150px;
 }
 
+.img-card {
+    height: 200px;
+}
+
 .img-table {
     height: 50px;
+}
+
+.img-member-card {
+    height: 70px;
+    border-radius: 50%;
+}
+
+// Promotion active
+tr.promotion-active {
+    background-color: hsla(45, 100%, 76%, 0.4);
+}
+a.promotion-active {
+    background-color: #ffe08566 !important;
+    border-left: 1px solid #ffe08566 !important;
+    border-top: 1px solid #ffe08566 !important;
+    border-right: 1px solid #ffe08566 !important;
+    border-bottom: 1px solid #fff !important;
+}
+ul.nav {
+    border-color: #ffe08566 !important;
 }
