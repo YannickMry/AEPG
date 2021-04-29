@@ -82,7 +82,10 @@ class AdminMemberController extends AbstractController
     public function sendOneRenewal(Member $member, EmailService $emailService, EntityManagerInterface $em): Response
     {
         $emailService->sendEmailRenewal($member);
-        $this->addFlash('success', "Un email de renouvellement d'apparition a bien été envoyé à {$member->getFullName()}.");
+        $this->addFlash(
+            'success',
+            "Un email de renouvellement d'apparition a bien été envoyé à {$member->getFullName()}."
+        );
         return $this->redirectToRoute('admin_promotion_index');
     }
 
