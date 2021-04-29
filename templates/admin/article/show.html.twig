@@ -3,11 +3,21 @@
 {% block title %}Actualités : {{article.title}}{% endblock %}
 
 {% block body %}
-<h1>{{article.title}}</h1>
-<img src="{{article.image}}" alt="">
-<p>
-    {{article.content}}
-</p>
-<small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
-
+<div class="row">
+    <div class="col-12">
+        <div class="d-block w-100 ps-3 pt-3 mb-5 text-white" style="background-image: url({{article.image}}); background-size: cover; background-repeat: no-repeat; height: 400px;">
+            <h1 class="fw-bold">{{article.title}}</h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-5" style="text-align: justify;">
+                {{article.content|raw}}
+            </div>
+            <small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
+        </div>
+    </div>
+</div>
 {% endblock %}
