@@ -24,6 +24,7 @@ class ArticleType extends AbstractType
             ])
             ->add('isDisplayed', CheckboxType::class, [
                 'label' => "Afficher l'article au public ?",
+                'required'  => false
             ])
             ->add('author', TextType::class, [
                 'label' => 'Auteur(s)',

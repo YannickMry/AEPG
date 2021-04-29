@@ -1,5 +1,5 @@
 <div class="row" {{promotion ? "data-promotion-year=" ~ promotion.year }}>
-    {% for member in promotion.members %}
+    {% for member in promotion ? promotion.members %}
     <div class="mt-4 col-12 col-lg-6 col-xl-4">
         <div class="card {{member.isDisplayed ? "active" }}" data-fullname="{{member.fullName}}">
             <div class="card-header d-flex justify-content-between">
@@ -33,6 +33,12 @@
                 </a>
             </div>
         </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning">
+        <p>
+            Aucune promotion n'a été créée ou aucun membre n'a été associé a une promotion.
+        </p>
     </div>
     {% endfor %}
 </div>
