@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\UserAuth;
 use App\Entity\Article;
 use App\Entity\Contact;
 use App\Form\ContactType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class HomeController extends AbstractController
 {
@@ -57,5 +59,29 @@ class HomeController extends AbstractController
         return $this->render('home/contact.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/user/add/admin", name="user_add_admin")
+     *
+     * @param UserPasswordEncoderInterface $userPasswordEncoderInterface
+     * @return Response
+     */
+    public function addUser(UserPasswordEncoderInterface $userPasswordEncoderInterface): Response
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository(UserAuth::class)->findOneBy(['email' => 'admin@test.com']);
+
+        if (!$user) {
+            $admin = new UserAuth();
+            $admin->setEmail('admin@test.com')
+                ->setRoles(['ROLE_ADMIN'])
+                ->setPassword($userPasswordEncoderInterface->encodePassword($admin, 'password'));
+            $em->persist($admin);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('home');
     }
 }
