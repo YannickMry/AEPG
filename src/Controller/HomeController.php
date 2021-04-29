@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,8 +20,9 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findBy([], ['createdAt' => 'DESC'], 3, 0);
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+            'articles' => $articles,
         ]);
     }
 
