@@ -42,7 +42,7 @@ class AdminAjaxMemberController extends AbstractController
 
         return $this->render("admin/ajax/$view.html.twig", [
             "promotion" => $promotion,
-            "members"   => $promotion->getMembers(),
+            "members"   => $promotion ? $promotion->getMembers() : null,
         ]);
     }
 
