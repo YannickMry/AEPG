@@ -102,21 +102,13 @@ class AdminPromotionController extends AbstractController
      */
     public function sendEmailToAllMembers(
         Promotion $promotion,
-        EntityManagerInterface $em,
         EmailService $emailService
     ): Response {
         $members = $promotion->getMembers();
 
         foreach ($members as $member) {
-            $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getFullName()));
-            $member->setRenewalToken($token);
-
-            $emailService->sendEmailRenewal($member, $token);
-
-            $member->setRenewalSentAt(new DateTimeImmutable());
+            $emailService->sendEmailRenewal($member);
         }
-
-        $em->flush();
 
         $this->addFlash('success', "Les emails ont bien été envoyés !");
 

@@ -3,27 +3,39 @@
 namespace App\Service;
 
 use App\Entity\Member;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Email;
+use DateTimeImmutable;
 use Symfony\Component\Mime\Address;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
 class EmailService
 {
     private MailerInterface $mailer;
+    private EntityManagerInterface $em;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, EntityManagerInterface $em)
     {
         $this->mailer = $mailer;
+        $this->em = $em;
     }
 
-    public function sendEmailRenewal(Member $member, string $token)
+    public function sendEmailRenewal(Member $member)
     {
         $answers = [
             'oui' => md5('oui'),
             'non' => md5('non'),
             'jamais' => md5('jamais'),
         ];
+
+        $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getSlug()));
+
+        $member->setRenewalAnswer(null)
+            ->setRenewalAnswerAt(null)
+            ->setRenewalToken($token)
+            ->setRenewalSentAt(new DateTimeImmutable());
+
+        $this->em->flush();
 
         $email = (new TemplatedEmail())
                 ->from(new Address('noreply@aepg.fr', "Association des étudiants pénalistes de Grenoble"))

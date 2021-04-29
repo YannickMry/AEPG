@@ -1,0 +1,38 @@
+<div class="row" {{promotion ? "data-promotion-year=" ~ promotion.year }}>
+    {% for member in promotion.members %}
+    <div class="mt-4 col-12 col-lg-6 col-xl-4">
+        <div class="card {{member.isDisplayed ? "active" }}" data-fullname="{{member.fullName}}">
+            <div class="card-header d-flex justify-content-between">
+                <h5>{{member.fullName}}</h5>
+                <div class="switch align-self-center">
+                    <input class="js-switch-member" type="checkbox" {{member.isDisplayed ? "checked='checked'" : ""}} data-id="{{member.id}}">
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row d-flex">
+                    <div class="col-4 d-flex justify-content-center">
+                        <img class="img-member-card" src="{{member.picture}}" alt="Photo de {{member.fullName}}">
+                    </div>
+                    <div class="col-8">
+                        <ul class="list-group list-group-flush">
+                            {% include "admin/ajax/_member_informations.html.twig" %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-around">
+                <a href="{{path('admin_member_send_one_renewal', {slug: member.slug})}}" class="btn btn-primary" onclick="confirm('Voulez-vous vraiment qu\'un email concernant le renouvellement d\'apparition soit envoyé à {{member.fullName}} ?')">
+                    <i class="fas fa-paper-plane"></i> 
+                    Envoyer le renouvellement
+                </a>
+                <a href="{{path('admin_member_edit', {slug: member.slug})}}" class="btn btn-warning text-white">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a href="#" class="btn btn-danger" onclick="confirm('Voulez vous vraiment supprimer ce membre ?');">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

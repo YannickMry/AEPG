@@ -1,12 +1,16 @@
-<div class="card">
-    <div class="card-header">
+<div class="card" {{promotion ? "data-promotion-year=" ~ promotion.year }}>
+    <div class="card-header d-flex justify-content-between">
         <h4 class="text-warning">Promotion : {{promotion ? promotion.year : '?' }}</h4>
+        <a href="{{path('admin_member_create', {'year': promotion ? promotion.year : null})}}" class="btn btn-outline-primary ">
+            Ajouter
+            <i class="fas fa-plus"></i>
+        </a>
     </div>
     <div class="card-body">
         <table class="table">
             <thead>
                 <th>Nom - prénom</th>
-                <th>Affiché/Caché</th>
+                <th>Cacher/Afficher</th>
                 <th>Dernière MAJ</th>
                 <th>Actions</th>
             </thead>
