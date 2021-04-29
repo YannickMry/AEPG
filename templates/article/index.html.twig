@@ -4,13 +4,26 @@
 
 {% block body %}
 
-{% for article in articles %}
-<h1><a href="{{path('article_show', {slug: article.slug})}}">{{article.title}}</a></h1>
-<img src="{{article.image}}" alt="">
-<p>
-    {{article.content|u.truncate(150, '...', false)}}
-</p>
-<small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
-{% endfor %}
+<div class="container mt-5">
+    <div class="row">
+        {% for article in articles %}
+        <div class="col-12 col-sm-6 col-xl-4 mb-5">
+            <div class="card">
+                <img src="{{article.image}}" alt="" class="img-card">
+                <div class="card-body">
+                    <h4 class="card-title">{{article.title}}</h4>
+                    <p>
+                        {{article.content|u.truncate(100, '...', false)}}
+                    </p>
+                    <small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
+                </div>
+                <div class="card-footer">
+                    <a href="{{path('article_show', {slug: article.slug})}}">voir</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

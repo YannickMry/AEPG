@@ -5,15 +5,41 @@
 {% block body %}
 
 <h1>Promotions</h1>
-<ul>
-{% for promotion in promotions %}
-    <li>{{promotion.year}} : </li>
-    <ul>
-        {% for member in promotion.members %}
-            <li>{{member.lastname}}</li>
+
+<div class="container">
+    <div class="accordion" id="accordionExample">
+        {% for promotion in promotions %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-{{promotion.year}}">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#promotion-{{promotion.year}}" aria-expanded="true" aria-controls="promotion-{{promotion.year}}">
+                {{promotion.year}}
+            </button>
+            </h2>
+            <div id="promotion-{{promotion.year}}" class="accordion-collapse collapse" aria-labelledby="heading-{{promotion.year}}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="row">
+                    {% for member in promotion.members %}
+                        {% if member.isDisplayed %}
+                        <div class="col-lg-3">
+                            <div class="d-flex flex-column align-items-center">
+                                <img class="bd-placeholder-img rounded-circle" src="{{member.picture}}" alt="" width="140" height="140" focusable="false">
+                                <h2>{{member.fullName}}</h2>
+                            </div>
+                            <ul>
+                                <li class="list-group-item">{{member.email ? member.email }}</li>
+                                <li class="list-group-item">{{member.currentJob ? member.currentJob : "Poste actuel N.R"}}</li>
+                                <li class="list-group-item">{{member.facebookLink ? member.facebookLink : "Facebook N.R"}}</li>
+                                <li class="list-group-item">{{member.linkedinLink ? member.linkedinLink : "Linkedin N.R"}}</li>
+                                <li class="list-group-item">Dernière mise à jour {{member.updatedAt|date('d/m/Y à H:i')}}</li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
-{% endfor %}
-</ul>
+    </div>
+</div>
 
 {% endblock %}

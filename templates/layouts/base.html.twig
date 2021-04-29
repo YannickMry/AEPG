@@ -12,9 +12,13 @@
         {% endblock %}
     </head>
     <body>
-        {% include "layouts/partials/_flash_messages.html.twig" %}
-        <main class="container">
+        <header>
+            {% include "layouts/partials/_navbar.html.twig" %}
+            {% include "layouts/partials/_flash_messages.html.twig" %}
+        </header>
+        <main>
         {% block body %}{% endblock %}
         </main>
+        {% include "layouts/partials/_footer.html.twig" %}
     </body>
 </html>
