@@ -107,6 +107,7 @@ class AdminPromotionController extends AbstractController
         $members = $promotion->getMembers();
 
         foreach ($members as $member) {
+            
             $emailService->sendEmailRenewal($member);
         }
 
