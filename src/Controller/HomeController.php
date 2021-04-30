@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\UserAuth;
+use App\Entity\User;
 use App\Entity\Article;
 use App\Entity\Contact;
 use App\Form\ContactType;
@@ -71,10 +71,10 @@ class HomeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository(UserAuth::class)->findOneBy(['email' => 'admin@test.com']);
+        $user = $em->getRepository(User::class)->findOneBy(['email' => 'admin@test.com']);
 
         if (!$user) {
-            $admin = new UserAuth();
+            $admin = new User();
             $admin->setEmail('admin@test.com')
                 ->setRoles(['ROLE_ADMIN'])
                 ->setPassword($userPasswordEncoderInterface->encodePassword($admin, 'password'));

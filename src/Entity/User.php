@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\UserAuthRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserAuthRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class UserAuth implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
