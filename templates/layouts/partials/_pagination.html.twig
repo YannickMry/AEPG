@@ -1,0 +1,21 @@
+{% set pages = range(
+    max(1, app.request.get("page", 1) - 3),
+    min(lastpage, app.request.get("page", 1) + 3)
+) %}
+{% if lastpage > 1 %}
+<nav>
+    <ul class="pagination">
+        <li class="page-item {{ app.request.get("page", 1) <= 1 ? "disabled" }}">
+            <a class="page-link" href="{{path(app.request.get('_route'), {page: app.request.get("page", 1) - 1})}}">Précédent</a>
+        </li>
+        {% for page in pages %}
+            <li class="page-item {{ page == app.request.get("page", 1) ? "active" }}">
+                <a class="page-link" href="{{path(app.request.get('_route'), {page: page})}}">{{page}}</a>
+            </li>
+        {% endfor %}
+        <li class="page-item {{ app.request.get("page", 1) >= lastpage ? "disabled" }}">
+            <a class="page-link" href="{{path(app.request.get('_route'), {page: app.request.get("page", 1) + 1})}}">Suivant</a>
+        </li>
+    </ul>
+</nav>
+{% endif %}
