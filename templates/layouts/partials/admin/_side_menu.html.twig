@@ -2,7 +2,7 @@
     <div class="user">
         <img class="user-img" src="{{asset('images/user-ano.jpg')}}" alt="Logo utilisateur sans image">
         <div class="user-informations dropdown-toggle" id="dropdown-user" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="user-name">xx</span>
+            <span class="user-name">{{app.user.fullName}}</span>
             <span class="user-email">{{app.user.username}}</span>
         </div>
         <ul class="dropdown-menu" aria-labelledby="dropdown-user">
