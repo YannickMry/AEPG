@@ -25,16 +25,21 @@ class ArticleRepository extends ServiceEntityRepository
      * @param integer $limit
      * @return Paginator<Article>
      */
-    public function getPaginatedArticle(int $currentPage, int $limit): Paginator
+    public function getPaginatedArticle(int $currentPage, int $limit, ?bool $isDisplayed = null): Paginator
     {
-        return new Paginator(
-            $this->createQueryBuilder('a')
-            ->where('a.isDisplayed = true')
-            ->setFirstResult(($currentPage - 1) * $limit)
-            ->setMaxResults($limit)
-            ->orderBy('a.createdAt', 'DESC')
-            ->getQuery()
-        );
+        $query = $this->createQueryBuilder('a');
+
+        if ($isDisplayed !== null) {
+            $query->where('a.isDisplayed = :isDisplayed')
+                ->setParameter('isDisplayed', $isDisplayed);
+        }
+
+        $query->setFirstResult(($currentPage - 1) * $limit)
+        ->setMaxResults($limit)
+        ->orderBy('a.createdAt', 'DESC')
+        ->getQuery();
+
+        return new Paginator($query);
     }
 
     // /**

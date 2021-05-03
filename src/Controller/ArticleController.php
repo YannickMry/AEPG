@@ -18,7 +18,7 @@ class ArticleController extends AbstractController
     {
         $currentPage = $request->query->getInt('page', 1);
 
-        $articles = $articleRepository->getPaginatedArticle($currentPage, 6);
+        $articles = $articleRepository->getPaginatedArticle($currentPage, 6, true);
         $lastpage = ceil($articles->count() / 6);
 
         return $this->render('article/index.html.twig', [
