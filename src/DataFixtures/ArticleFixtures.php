@@ -18,7 +18,7 @@ class ArticleFixtures extends Fixture
         $imageCategories = ['tech', 'arch', 'nature'];
         $imageFilters = ['', '/grayscale', '/sepia'];
 
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 90; $i++) {
             $date = $faker->dateTimeBetween('-4 months', 'now', 'Europe/Paris');
             $image = sprintf(
                 'https://placeimg.com/640/480/%s%s',
@@ -28,7 +28,7 @@ class ArticleFixtures extends Fixture
 
             $article = (new Article())
                 ->setTitle($faker->words(rand(5, 10), true))
-                ->setContent($faker->text())
+                ->setContent($faker->paragraphs(10, true))
                 ->setImage($image)
                 ->setAuthor($faker->name())
                 ->setisDisplayed($bool[rand(0, 1)])
