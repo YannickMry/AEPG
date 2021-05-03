@@ -147,4 +147,9 @@ class User implements UserInterface
     {
         return null;
     }
+
+    public function getFullName(): string
+    {
+        return $this->lastname . " " . $this->firstname;
+    }
 }
