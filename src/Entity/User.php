@@ -152,4 +152,14 @@ class User implements UserInterface
     {
         return $this->lastname . " " . $this->firstname;
     }
+
+    public function displayRole(): ?string
+    {
+        $result = '';
+        foreach ($this->roles as $role ) {
+            $result = $role === 'ROLE_ADMIN' ? 'Administrateur': 'Super administrateur';
+            break;
+        }
+        return $result;
+    }
 }
