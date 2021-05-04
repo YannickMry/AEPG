@@ -5,29 +5,40 @@
 {% block body %}
 <div class="row">
     <div class="col-12">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom - Prénom</th>
-                    <th>Email</th>
-                    <th>Roles</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td>{{user.fullName}}</td>
-                        <td>{{user.username}}</td>
-                        <td>{{user.displayRole}}</td>
-                        <td>
-                            <a href="{{path('admin_user_edit', {id: user.id})}}">modifier</a>
-                            <a href="">supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h4 class="text-warning">Utilisateurs</h4>
+                <a href="{{ path('admin_user_create')}}" class="btn btn-outline-primary ">
+                    Ajouter
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom - Prénom</th>
+                            <th>Email</th>
+                            <th>Roles</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{user.fullName}}</td>
+                                <td>{{user.username}}</td>
+                                <td>{{user.displayRole}}</td>
+                                <td>
+                                    <a href="{{path('admin_user_edit', {id: user.id})}}">modifier</a>
+                                    <a href="">supprimer</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
