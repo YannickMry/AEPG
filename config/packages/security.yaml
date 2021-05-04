@@ -35,3 +35,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_SUPERADMIN] }
+    role_hierarchy:
+        ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_SUPERADMIN]
