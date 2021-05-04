@@ -155,11 +155,6 @@ class User implements UserInterface
 
     public function displayRole(): ?string
     {
-        $result = '';
-        foreach ($this->roles as $role ) {
-            $result = $role === 'ROLE_ADMIN' ? 'Administrateur': 'Super administrateur';
-            break;
-        }
-        return $result;
+        return in_array('ROLE_SUPERADMIN', $this->roles) ? 'Super administrateur' : 'Administrateur';
     }
 }
