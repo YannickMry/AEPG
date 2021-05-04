@@ -24,6 +24,21 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -47,6 +62,42 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = strtoupper($lastname);
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = ucfirst(strtolower($firstname));
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
@@ -112,5 +163,15 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         return null;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->lastname . " " . $this->firstname;
+    }
+
+    public function displayRole(): ?string
+    {
+        return in_array('ROLE_SUPERADMIN', $this->roles) ? 'Super administrateur' : 'Administrateur';
     }
 }

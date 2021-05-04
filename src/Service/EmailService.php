@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Member;
+use App\Entity\User;
 use DateTimeImmutable;
 use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,6 +46,33 @@ class EmailService
                 ->context([
                     'token' => $token,
                     'answers' => $answers,
+                ]);
+
+        $this->mailer->send($email);
+    }
+
+    /**
+     * Envoi d'un email afin que l'utilisateur puisse créer son mot de passe
+     *
+     * @param User $user
+     * @return void
+     */
+    public function sendCreateAccount(User $user): void
+    {
+        $token = hash("sha256", sprintf("%d-%s", $user->getId(), strtolower($user->getLastname())));
+
+        $user->setToken($token)
+            ->setPassword('create');
+        $this->em->persist($user);
+        $this->em->flush();
+
+        $email = (new TemplatedEmail())
+                ->from(new Address('noreply@aepg.fr', "Association des étudiants pénalistes de Grenoble"))
+                ->to(new Address($user->getEmail(), $user->getFullName()))
+                ->subject("Création du compte AEPG")
+                ->htmlTemplate('emails/create_account.html.twig')
+                ->context([
+                    'token' => $token,
                 ]);
 
         $this->mailer->send($email);
