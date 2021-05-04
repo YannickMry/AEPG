@@ -1,0 +1,10 @@
+{% extends "email.html.twig" %}
+
+{% block body %}
+<p>
+    Un compte a été créé avec votre email pour le site de l'AEPG. <br>
+    Cliquez sur le lien ci dessous afin d'ajouter un mot de passe.
+</p>    
+<br>
+<a href="{{url('admin_user_create_password', {token: token})}}">Créer mon mot de passe</a>
+{% endblock %}

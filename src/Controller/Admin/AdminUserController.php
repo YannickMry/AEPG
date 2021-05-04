@@ -3,16 +3,20 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Form\CreatePasswordType;
 use App\Form\UserType;
+use App\Repository\UserRepository;
+use App\Service\EmailService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @IsGranted("ROLE_ADMIN")
  * @Route("/admin", name="admin_user_")
  */
 class AdminUserController extends AbstractController
@@ -27,7 +31,7 @@ class AdminUserController extends AbstractController
             'lastname'  => 'ASC',
             'firstname' => 'ASC'
         ]);
-        
+
         return $this->render('admin/user/index.html.twig', [
             'users' => $users
         ]);
@@ -35,9 +39,9 @@ class AdminUserController extends AbstractController
 
     /**
      * @IsGranted("ROLE_SUPERADMIN")
-     * @Route("/utilisateur/creation", name="create", methods="GET")
+     * @Route("/utilisateur/creation", name="create", methods="GET|POST")
      */
-    public function create(Request $request, EntityManagerInterface $em): Response
+    public function create(Request $request, EmailService $emailService): Response
     {
         $user = new User();
 
@@ -45,14 +49,57 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($user);
-            $em->flush();
+            $emailService->sendCreateAccount($user);
             $this->addFlash('success', "L'utilisateur {$user->getFullName()} a bien été créé !");
             return $this->redirectToRoute('admin_user_index');
         }
 
         return $this->render('admin/user/create.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/creation-mot-de-passe/{token}", name="create_password", methods="GET|POST")
+     *
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserRepository $userRepository
+     * @return Response
+     */
+    public function createPassword(
+        string $token,
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        UserRepository $userRepository,
+        EntityManagerInterface $em
+    ): Response {
+        $user = $userRepository->findOneBy(['token' => $token]);
+        if (!$user) {
+            $this->addFlash('danger', "Vous n'avez pas accès à ce lien.");
+            dd('ici');
+            return $this->redirectToRoute('contact');
+        }
+
+        $form = $this->createForm(CreatePasswordType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->getData()['password'];
+
+            $encodedPassword = $passwordEncoder->encodePassword($user, $password);
+
+            $user->setPassword($encodedPassword)
+                ->setToken(null);
+
+            $em->flush();
+
+            $this->addFlash('success', "Votre mot de passe a bien été enregistré !");
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('admin/user/create_password.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 

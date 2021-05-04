@@ -34,6 +34,11 @@ class User implements UserInterface
     private $firstname;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -81,6 +86,18 @@ class User implements UserInterface
     public function setFirstname(string $firstname): self
     {
         $this->firstname = ucfirst(strtolower($firstname));
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
