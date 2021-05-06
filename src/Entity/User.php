@@ -34,6 +34,16 @@ class User implements UserInterface
     private $firstname;
 
     /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $loginAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $token;
@@ -80,12 +90,36 @@ class User implements UserInterface
 
     public function getFirstname(): ?string
     {
-        return $this->lastname;
+        return $this->firstname;
     }
 
     public function setFirstname(string $firstname): self
     {
         $this->firstname = ucfirst(strtolower($firstname));
+
+        return $this;
+    }
+
+    public function getLoginAt(): ?\DateTimeImmutable
+    {
+        return $this->loginAt;
+    }
+
+    public function setLoginAt(?\DateTimeImmutable $loginAt): self
+    {
+        $this->loginAt = $loginAt;
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeImmutable
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeImmutable $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
 
         return $this;
     }

@@ -14,8 +14,11 @@ class AdminHomeController extends AbstractController
     /**
      * @Route("/admin", name="admin_home")
      */
-    public function index(ArticleRepository $articleRepository, PromotionRepository $promotionRepository, Request $request): Response
-    {
+    public function index(
+        ArticleRepository $articleRepository,
+        PromotionRepository $promotionRepository,
+        Request $request
+    ): Response {
         $currentPage = $request->query->getInt('page', 1);
 
         $articles = $articleRepository->getPaginatedArticle($currentPage, 6);

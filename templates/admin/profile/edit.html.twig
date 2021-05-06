@@ -1,0 +1,30 @@
+{% extends 'layouts/base_admin.html.twig' %}
+
+{% block body %}
+
+<div class="my-5 row d-flex justify-content-center">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="fw-bold text-warning">Informations du profil</h4>
+            </div>
+            <div class="card-body">
+                {% include "layouts/partials/_form.html.twig" with {form: formProfile, btn: 'Modifier mes informations'} %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="fw-bold text-warning">Mot de passe</h4>
+            </div>
+            <div class="card-body">
+                {% include "layouts/partials/_form.html.twig" with {form: formEditPassword, btn: 'Modifier mon mot de passe'} %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

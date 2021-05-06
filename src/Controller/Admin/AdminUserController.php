@@ -64,7 +64,7 @@ class AdminUserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
     /**
      * @IsGranted("ROLE_SUPERADMIN")
      * @Route("/admin/utilisateur", name="index", methods="GET")
