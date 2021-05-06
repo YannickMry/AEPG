@@ -35,11 +35,11 @@ class AdminProfileController extends AbstractController
      * @return Response
      */
     public function edit(
-        Request $request, 
-        EntityManagerInterface $em, 
+        Request $request,
+        EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder
-        ): Response {
-            
+    ): Response {
+
         $formProfile = $this->createForm(ProfileType::class, $this->getUser())->handleRequest($request);
         $formEditPassword = $this->createForm(EditPasswordType::class)->handleRequest($request);
 
@@ -47,7 +47,6 @@ class AdminProfileController extends AbstractController
         $user = $this->getUser();
 
         if ($formProfile->isSubmitted() && $formProfile->isValid()) {
-
             $em->flush();
             $this->addFlash('success', "Vos informations ont bien été modifiées !");
 
@@ -55,7 +54,6 @@ class AdminProfileController extends AbstractController
         }
 
         if ($formEditPassword->isSubmitted() && $formEditPassword->isValid()) {
-
             $plainPassword = $formEditPassword->getData()['new_password'];
 
             $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));

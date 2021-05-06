@@ -103,7 +103,7 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
 
         /** @var User $user */
         $user = $token->getUser();
-        
+
         $user->setLastLogin($user->getLoginAt());
         $user->setLoginAt(new DateTimeImmutable());
 

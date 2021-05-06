@@ -12,6 +12,6 @@ class ArticleTest extends KernelTestCase
         self::bootKernel();
         $article = self::$container->get(ArticleRepository::class)->count([]);
 
-        $this->assertEquals(30, $article);
+        $this->assertEquals(90, $article);
     }
 }
