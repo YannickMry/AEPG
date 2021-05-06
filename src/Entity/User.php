@@ -90,7 +90,7 @@ class User implements UserInterface
 
     public function getFirstname(): ?string
     {
-        return $this->lastname;
+        return $this->firstname;
     }
 
     public function setFirstname(string $firstname): self
