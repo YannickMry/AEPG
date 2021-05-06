@@ -17,48 +17,10 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/admin", name="admin_user_")
+ * @Route("", name="admin_user_")
  */
 class AdminUserController extends AbstractController
 {
-    /**
-     * @IsGranted("ROLE_SUPERADMIN")
-     * @Route("/utilisateur", name="index", methods="GET")
-     */
-    public function index(): Response
-    {
-        $users = $this->getDoctrine()->getRepository(User::class)->findBy([], [
-            'lastname'  => 'ASC',
-            'firstname' => 'ASC'
-        ]);
-
-        return $this->render('admin/user/index.html.twig', [
-            'users' => $users
-        ]);
-    }
-
-    /**
-     * @IsGranted("ROLE_SUPERADMIN")
-     * @Route("/utilisateur/creation", name="create", methods="GET|POST")
-     */
-    public function create(Request $request, EmailService $emailService): Response
-    {
-        $user = new User();
-
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $emailService->sendCreateAccount($user);
-            $this->addFlash('success', "L'utilisateur {$user->getFullName()} a bien été créé !");
-            return $this->redirectToRoute('admin_user_index');
-        }
-
-        return $this->render('admin/user/create.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
     /**
      * @Route("/utilisateur/creation-mot-de-passe/{token}", name="create_password", methods="GET|POST")
      *
@@ -102,10 +64,48 @@ class AdminUserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    
+    /**
+     * @IsGranted("ROLE_SUPERADMIN")
+     * @Route("/admin/utilisateur", name="index", methods="GET")
+     */
+    public function index(): Response
+    {
+        $users = $this->getDoctrine()->getRepository(User::class)->findBy([], [
+            'lastname'  => 'ASC',
+            'firstname' => 'ASC'
+        ]);
+
+        return $this->render('admin/user/index.html.twig', [
+            'users' => $users
+        ]);
+    }
 
     /**
      * @IsGranted("ROLE_SUPERADMIN")
-     * @Route("/utilisateur/{id}/modification", name="edit", methods="GET|POST")
+     * @Route("/admin/utilisateur/creation", name="create", methods="GET|POST")
+     */
+    public function create(Request $request, EmailService $emailService): Response
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $emailService->sendCreateAccount($user);
+            $this->addFlash('success', "L'utilisateur {$user->getFullName()} a bien été créé !");
+            return $this->redirectToRoute('admin_user_index');
+        }
+
+        return $this->render('admin/user/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @IsGranted("ROLE_SUPERADMIN")
+     * @Route("/admin/utilisateur/{id}/modification", name="edit", methods="GET|POST")
      *
      * @param User $user
      * @param Request $request
