@@ -6,7 +6,7 @@
             <span class="user-email">{{app.user.username}}</span>
         </div>
         <ul class="dropdown-menu" aria-labelledby="dropdown-user">
-            <li><a class="dropdown-item" href="#">Profil</a></li>
+            <li><a class="dropdown-item" href="{{path('admin_profile_index')}}">Profil</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{path('app_logout')}}">Déconnexion</a></li>
         </ul>

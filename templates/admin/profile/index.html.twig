@@ -1,0 +1,41 @@
+{% extends "layouts/base_admin.html.twig" %}
+{% set user = app.user %}
+{% block body %}
+    <div class="row d-flex justify-content-center">
+        <h2 class="mt-4 mb-5 text-center">Mon profil</h2>
+        <div class="col-2">
+            <img class="img rounded-circle" src="{{asset('images/user-ano.jpg')}}" alt="Logo utilisateur sans image">
+        </div>
+        <div class="col-6">
+            <ul class="list-group">
+                <li class="px-3 list-group-item d-flex justify-content-between align-items-start">
+                    <div class="col-6">
+                        <h6 class="fw-bold">Nom - Prénom</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{user.fullName}}</p>
+                    </div>
+                </li>
+                <li class="px-3 list-group-item d-flex justify-content-between align-items-start">
+                    <div class="col-6">
+                        <h6 class="fw-bold">Adresse email</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>{{user.username}}</p>
+                    </div>
+                </li>
+                <li class="px-3 list-group-item d-flex justify-content-between align-items-start">
+                    <div class="col-6">
+                        <h6 class="fw-bold">Dernière connexion</h6>
+                    </div>
+                    <div class="col-6">
+                        <p>Le {{user.lastLogin|date('d/m/Y à H:i')}}</p>
+                    </div>
+                </li>
+                <li class="px-3 list-group-item">
+                    <a href="" class="fw-bold">Editer mes informations</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock body %}

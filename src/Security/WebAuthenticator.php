@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,6 +100,14 @@ class WebAuthenticator extends AbstractFormLoginAuthenticator implements Passwor
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
+        /** @var User $user */
+        $user = $token->getUser();
+        
+        $user->setLastLogin($user->getLoginAt());
+        $user->setLoginAt(new DateTimeImmutable());
+
+        $this->entityManager->flush();
 
         return new RedirectResponse($this->urlGenerator->generate('admin_home'));
     }
