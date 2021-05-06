@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
 
         $admin = new User();
         $admin->setEmail('admin@test.com')
-            ->setRoles(['ROLE_ADMIN'])
+            ->setRoles(['ROLE_SUPERADMIN'])
             ->setFirstname('Admin')
             ->setLastname('Admin')
             ->setPassword($this->userPasswordEncoder->encodePassword($admin, 'password'));
@@ -35,7 +35,8 @@ class UserFixtures extends Fixture
             $user = (new User())
                 ->setEmail(sprintf('user%d@test.com', $i))
                 ->setFirstname($faker->firstName)
-                ->setLastname($faker->lastName);
+                ->setLastname($faker->lastName)
+                ->setRoles(['ROLE_ADMIN']);
 
             $user->setPassword($this->userPasswordEncoder->encodePassword($user, 'password'));
 
