@@ -29,14 +29,7 @@ class EmailService
             'jamais' => md5('jamais'),
         ];
 
-        $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getSlug()));
-
-        $member->setRenewalAnswer(null)
-            ->setRenewalAnswerAt(null)
-            ->setRenewalToken($token)
-            ->setRenewalSentAt(new DateTimeImmutable());
-
-        $this->em->flush();
+        
 
         $email = (new TemplatedEmail())
                 ->from(new Address('noreply@aepg.fr', "Association des étudiants pénalistes de Grenoble"))
@@ -44,7 +37,7 @@ class EmailService
                 ->subject("Renouvellement d'apparition sur le site AEPG")
                 ->htmlTemplate('emails/renewal.html.twig')
                 ->context([
-                    'token' => $token,
+                    'token' => $member->getRenewalToken(),
                     'answers' => $answers,
                 ]);
 

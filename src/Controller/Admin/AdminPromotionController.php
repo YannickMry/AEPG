@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Promotion;
 use App\Form\PromotionType;
+use App\Message\MailMemberRenewal;
 use App\Repository\PromotionRepository;
 use App\Service\EmailService;
 use DateTimeImmutable;
@@ -106,9 +107,24 @@ class AdminPromotionController extends AbstractController
     ): Response {
         $members = $promotion->getMembers();
 
+        /** @var Member $member */
         foreach ($members as $member) {
-            $emailService->sendEmailRenewal($member);
+
+            $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getSlug()));
+
+            $member->setRenewalAnswer(null)
+            ->setRenewalAnswerAt(null)
+            ->setRenewalToken($token)
+            ->setRenewalSentAt(new DateTimeImmutable());
+
+            $this->dispatchMessage(new MailMemberRenewal(
+                $member->getEmail(),
+                $member->getFullName(),
+                $member->getRenewalToken()
+            ));
         }
+        
+        $this->getDoctrine()->getManager()->flush();
 
         $this->addFlash('success', "Les emails ont bien été envoyés !");
 
