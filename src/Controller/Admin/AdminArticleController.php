@@ -46,7 +46,7 @@ class AdminArticleController extends AbstractController
                 "L'article '{$article->getTitle()}' a bien été créé"
             );
 
-            return $this->redirectToRoute('article_show', ['slug' => $article->getSlug()]);
+            return $this->redirectToRoute('admin_article_show', ['slug' => $article->getSlug()]);
         }
 
         return $this->render('admin/article/create.html.twig', [
