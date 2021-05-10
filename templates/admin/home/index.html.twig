@@ -29,7 +29,7 @@
                         {% for article in articles %}
                         <tr>
                             <td>
-                                <img src="{{article.image}}" alt="" class="img img-table">
+                                <img src="{{asset(article.image)}}" alt="" class="img img-table">
                             </td>
                             <td>{{article.title}}</td>
                             <td>

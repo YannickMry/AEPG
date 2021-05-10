@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="p-0 m-0 text-white rounded">
-            <div class="ps-4 pt-4" style="background-image: url({{article.image}}); height: 500px; background-size: cover; background-repeat: no-repeat;">
+            <div class="ps-4 pt-4" style="background-image: {{ "url(" ~ asset(article.image) ~ ")" }}; height: 500px; background-size: cover; background-repeat: no-repeat;">
                 <h1 class="display-4 fst-italic">{{article.title}}</h1>
             </div>
         </div>
