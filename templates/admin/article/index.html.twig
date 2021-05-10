@@ -9,14 +9,12 @@
 
     </form>
     {% for article in articles %}
-    <div class="col-12 col-sm-6 col-xl-4 mb-5">
+    <div class="col-sm-6 col-xl-4 mb-5">
         <div class="card">
             <img src="{{article.image}}" alt="" class="img-card">
             <div class="card-body">
-                <h5 class="card-title">{{article.title}}</h5>
-                <p>
-                    {{article.content|u.truncate(100, '...', false)}}
-                </p>
+                <h4 class="card-title fw-bold">{{article.title}}</h4>
+                {{article.content|u.truncate(100, '...', false)|raw}}
             </div>
             <div class="card-footer d-flex justify-content-around">
                 <a href="{{path('admin_article_show', {slug: article.slug})}}" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a>

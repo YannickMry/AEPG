@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{article.title}}</h4>
                     <p>
-                        {{article.content|u.truncate(100, '...', false)}}
+                        {{article.content|u.truncate(100, '...', false)|raw}}
                     </p>
                     <small>Publié le {{article.createdAt|date('d/m/Y à H:i')}}</small> | <small>Auteur(s) : {{article.author}}</small>
                 </div>
