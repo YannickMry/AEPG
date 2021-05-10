@@ -11,7 +11,7 @@
     {% for article in articles %}
     <div class="col-sm-6 col-xl-4 mb-5">
         <div class="card">
-            <img src="{{article.image}}" alt="" class="img-card">
+            <img src="{{asset(article.image)}}" alt="" class="img-card">
             <div class="card-body">
                 <h4 class="card-title fw-bold">{{article.title}}</h4>
                 {{article.content|u.truncate(100, '...', false)|raw}}

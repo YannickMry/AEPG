@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArticleRepository;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @ORM\EntityListeners({"App\EntityListener\ArticleListener"})
  */
 class Article
 {
@@ -41,6 +43,11 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
+
+    /**
+     * @Assert\Image
+     */
+    private ?UploadedFile $file = null;
 
     /**
      * @ORM\Column(type="text")
@@ -122,6 +129,18 @@ class Article
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(?UploadedFile $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }
