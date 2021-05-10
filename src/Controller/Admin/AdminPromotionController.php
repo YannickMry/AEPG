@@ -109,7 +109,6 @@ class AdminPromotionController extends AbstractController
 
         /** @var Member $member */
         foreach ($members as $member) {
-
             $token = hash("sha256", sprintf("%d-%s", $member->getId(), $member->getSlug()));
 
             $member->setRenewalAnswer(null)
@@ -123,7 +122,7 @@ class AdminPromotionController extends AbstractController
                 $member->getRenewalToken()
             ));
         }
-        
+
         $this->getDoctrine()->getManager()->flush();
 
         $this->addFlash('success', "Les emails ont bien été envoyés !");

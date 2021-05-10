@@ -23,7 +23,7 @@ class MailMemberRenewalHandler implements MessageHandlerInterface
             'oui' => md5('oui'),
             'non' => md5('non'),
             'jamais' => md5('jamais'),
-        ];        
+        ];
 
         $email = (new TemplatedEmail())
                 ->from(new Address('noreply@aepg.fr', "Association des étudiants pénalistes de Grenoble"))
@@ -34,7 +34,7 @@ class MailMemberRenewalHandler implements MessageHandlerInterface
                     'token' => $message->getRenewalToken(),
                     'answers' => $answers,
                 ]);
-        
+
         sleep(1);
 
         $this->mailer->send($email);

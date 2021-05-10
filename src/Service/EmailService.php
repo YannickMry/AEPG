@@ -29,7 +29,7 @@ class EmailService
             'jamais' => md5('jamais'),
         ];
 
-        
+
 
         $email = (new TemplatedEmail())
                 ->from(new Address('noreply@aepg.fr', "Association des étudiants pénalistes de Grenoble"))
